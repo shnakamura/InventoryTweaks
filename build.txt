@@ -1,0 +1,11 @@
+displayName = Naka's Inventory Tweaks
+author = nakamurash
+version = 0.2.1
+
+hideCode = false
+hideResources = false
+
+includePDB = true
+includeSource = true
+
+side = Client

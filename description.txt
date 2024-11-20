@@ -1,0 +1,1 @@
+A client-side mod which adds several configurable tweaks to the inventory, including new visual animations, refined mouse interactions, etc.
