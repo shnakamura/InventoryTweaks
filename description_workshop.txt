@@ -1,0 +1,5 @@
+[img]https://raw.githubusercontent.com/shnakamura/InventoryTweaks/main/.github/assets/header-title.png[/img]
+[img]https://raw.githubusercontent.com/shnakamura/InventoryTweaks/main/.github/assets/header-features.png[/img]
+[img]https://raw.githubusercontent.com/shnakamura/InventoryTweaks/main/.github/assets/feature-quick-shift.gif[/img]
+[img]https://raw.githubusercontent.com/shnakamura/InventoryTweaks/main/.github/assets/feature-quick-control.gif[/img]
+[url=https://ko-fi.com/nakamurash][img]https://raw.githubusercontent.com/shnakamura/InventoryTweaks/main/.github/assets/header-kofi.png[/img][/url]
