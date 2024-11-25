@@ -1,0 +1,40 @@
+Configs: {
+	ClientConfiguration: {
+		DisplayName: Configuración del Cliente
+
+		Headers: {
+			Graphics: Gráficos
+			Input: Entrada
+		}
+
+		HoveredItemScale: {
+			Label: Tamaño de los Objetos Seleccionados
+			Tooltip: El tamaño para los objetos seleccionados.
+		}
+
+		UnhoveredItemScale: {
+			Label: Tamaño de los Objetos No Seleccionados
+			Tooltip: El tamaño para los objetos no seleccionados.
+		}
+
+		EnableHoverEffects: {
+			Label: Activar Efectos De Tamaño
+			Tooltip: Si los efectos de tamaño están activados o no.
+		}
+
+		EnableMovementEffects: {
+			Label: Activar Efectos de Movimiento
+			Tooltip: Si los efectos de movimiento están activados o no.
+		}
+
+		EnableQuickShift: {
+			Label: Activar Shift Rápido
+			Tooltip: Si el shift rápido está activado o no.
+		}
+
+		EnableQuickControl: {
+			Label: Activar Control Rápido
+			Tooltip: Si el control rápido está activado o no.
+		}
+	}
+}

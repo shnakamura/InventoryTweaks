@@ -1,5 +1,6 @@
 ﻿using InventoryTweaks.Core.Configuration;
 using InventoryTweaks.Utilities;
+using Terraria.GameContent;
 using Terraria.UI;
 
 namespace InventoryTweaks.Core.Graphics;
@@ -31,7 +32,7 @@ public sealed class InventoryGraphicsRenderer : ILoadable
         var drawScale = scale;
         
         var config = ClientConfiguration.Instance;
-
+        
         if (config.EnableMovementEffects) {
             if (graphics.HasInventoryDrawPosition) {
                 graphics.InventoryDrawPosition = Vector2.SmoothStep(graphics.InventoryDrawPosition, screenPositionForItemCenter, 0.5f);
@@ -39,21 +40,23 @@ public sealed class InventoryGraphicsRenderer : ILoadable
             else {
                 graphics.InventoryDrawPosition = screenPositionForItemCenter;
             }
-            
-            drawPosition = graphics.InventoryDrawPosition;
+
+            if (Main.mouseItem != item) {
+                drawPosition = graphics.InventoryDrawPosition;
+            }
         }
 
         if (config.EnableHoverEffects) {
             var hitbox = new Rectangle(
-                (int)screenPositionForItemCenter.X - 20,
-                (int)screenPositionForItemCenter.Y - 20,
+                (int)(screenPositionForItemCenter.X) - 20,
+                (int)(screenPositionForItemCenter.Y) - 20,
                 40,
                 40
             );
-            
-            var hovering = hitbox.Contains(Main.MouseScreen.ToPoint());
 
-            graphics.DrawScale = MathHelper.SmoothStep(graphics.DrawScale, (hovering || context == ItemSlot.Context.MouseItem) ? config.HoveredItemScale : config.UnhoveredItemScale, 0.5f);
+            var hovering = hitbox.Contains(Main.MouseScreen.ToPoint()) || Main.mouseItem == item;
+            
+            graphics.DrawScale = MathHelper.SmoothStep(graphics.DrawScale, hovering ? config.HoveredItemScale : config.UnhoveredItemScale, 0.5f);
             
             drawScale = graphics.DrawScale;
         }
