@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using Terraria.ModLoader.Config;
 
 namespace InventoryTweaks.Core.Configuration;
@@ -7,7 +6,7 @@ namespace InventoryTweaks.Core.Configuration;
 public sealed partial class ClientConfiguration : ModConfig
 {
     public static ClientConfiguration Instance => ModContent.GetInstance<ClientConfiguration>();
-    
+
     public override ConfigScope Mode { get; } = ConfigScope.ClientSide;
 
     /// <summary>
@@ -16,13 +15,13 @@ public sealed partial class ClientConfiguration : ModConfig
     [Header("Graphics")]
     [DefaultValue(true)]
     public bool EnableHoverEffects { get; set; } = true;
-    
+
     /// <summary>
     ///     Whether movement effects are enabled or not.
     /// </summary>
     [DefaultValue(true)]
     public bool EnableMovementEffects { get; set; } = true;
-    
+
     /// <summary>
     ///     The draw scale of hovered items.
     /// </summary>

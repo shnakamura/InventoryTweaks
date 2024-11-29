@@ -1,6 +1,6 @@
 displayName = Naka's Inventory Tweaks
 author = nakamurash
-version = 0.3.1
+version = 1.0
 homepage = https://discord.gg/cYdxYa6Nsk
 
 hideCode = false
@@ -10,3 +10,5 @@ includePDB = true
 includeSource = true
 
 side = Client
+
+weakReferences = MagicStorage

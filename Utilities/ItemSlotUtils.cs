@@ -4,7 +4,7 @@ using Terraria.UI;
 namespace InventoryTweaks.Utilities;
 
 /// <summary>
-///     Provides <see cref="ItemSlot"/> utilities.
+///     Provides <see cref="ItemSlot" /> utilities.
 /// </summary>
 public static class ItemSlotUtils
 {
@@ -14,7 +14,8 @@ public static class ItemSlotUtils
     /// <param name="context">The context to check.</param>
     /// <returns><c>true</c> if the provided context represents an inventory item; otherwise, <c>false</c>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsInventoryContext(int context) {
+    public static bool IsInventoryContext(int context)
+    {
         return context == ItemSlot.Context.InventoryItem
                || context == ItemSlot.Context.InventoryAmmo
                || context == ItemSlot.Context.InventoryCoin

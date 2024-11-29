@@ -11,7 +11,7 @@ public sealed partial class ClientConfiguration : ModConfig
     [Header("Input")]
     [DefaultValue(true)]
     public bool EnableQuickShift { get; set; } = true;
-    
+
     /// <summary>
     ///     Whether quick-control is enabled or not.
     /// </summary>
