@@ -11,4 +11,5 @@ includeSource = true
 
 side = Client
 
+sortAfter = MagicStorage
 weakReferences = MagicStorage

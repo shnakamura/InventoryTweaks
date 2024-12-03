@@ -5,6 +5,7 @@ Configs: {
 		Headers: {
 			Graphics: Графические настройки
 			Input: Настройки взаимодействий
+			// Audio: Audio Header
 		}
 
 		HoveredItemScale: {
@@ -35,6 +36,16 @@ Configs: {
 		EnableQuickControl: {
 			Label: Быстрое выбрасывание
 			Tooltip: Позволяет быстро выбрасывать предметы при наведении на них с зажатым ЛКМ и Ctrl
+		}
+
+		EnableStackRefill: {
+			// Label: Enable Stack Refill
+			// Tooltip: Whether stack refill is enabled or not.
+		}
+
+		EnableInventorySounds: {
+			// Label: Enable Inventory Sounds
+			// Tooltip: ""
 		}
 	}
 }

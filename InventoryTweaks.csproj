@@ -2,4 +2,10 @@
 
     <Import Project="..\tModLoader.targets"/>
 
+    <ItemGroup>
+      <Reference Include="MagicStorage">
+        <HintPath>lib\MagicStorage.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>

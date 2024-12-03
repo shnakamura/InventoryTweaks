@@ -17,4 +17,10 @@ public sealed partial class ClientConfiguration : ModConfig
     /// </summary>
     [DefaultValue(true)]
     public bool EnableQuickControl { get; set; } = true;
+
+    /// <summary>
+    ///     Whether stack refill is enabled or not.
+    /// </summary>
+    [DefaultValue(true)]
+    public bool EnableStackRefill { get; set; } = true;
 }

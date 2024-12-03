@@ -1,10 +1,11 @@
-﻿Configs: {
+Configs: {
 	ClientConfiguration: {
 		DisplayName: Configuração do Cliente
 
 		Headers: {
 			Graphics: Gráficos
 			Input: Input
+			// Audio: Audio Header
 		}
 
 		HoveredItemScale: {
@@ -35,6 +36,16 @@
 		EnableQuickControl: {
 			Label: Habilitar Control Rápido
 			Tooltip: Se o control rápido está habilitado ou não.
+		}
+
+		EnableStackRefill: {
+			// Label: Enable Stack Refill
+			// Tooltip: Whether stack refill is enabled or not.
+		}
+
+		EnableInventorySounds: {
+			// Label: Enable Inventory Sounds
+			// Tooltip: ""
 		}
 	}
 }

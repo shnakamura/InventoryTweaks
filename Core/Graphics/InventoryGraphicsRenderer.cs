@@ -1,10 +1,10 @@
 ﻿using InventoryTweaks.Core.Configuration;
 using InventoryTweaks.Utilities;
+using Terraria.Audio;
 using Terraria.UI;
 
 namespace InventoryTweaks.Core.Graphics;
 
-[Autoload(Side = ModSide.Client)]
 public sealed class InventoryGraphicsRenderer : ILoadable
 {
     void ILoadable.Load(Mod mod)
@@ -14,7 +14,8 @@ public sealed class InventoryGraphicsRenderer : ILoadable
 
     void ILoadable.Unload() { }
 
-    private static float ItemSlot_DrawItemIcon_Hook(
+    private static float ItemSlot_DrawItemIcon_Hook
+    (
         On_ItemSlot.orig_DrawItemIcon orig,
         Item item,
         int context,
@@ -29,7 +30,7 @@ public sealed class InventoryGraphicsRenderer : ILoadable
         {
             return orig(item, context, spriteBatch, screenPositionForItemCenter, scale, sizeLimit, environmentColor);
         }
-
+        
         var drawPosition = screenPositionForItemCenter;
         var drawScale = scale;
 
@@ -37,32 +38,41 @@ public sealed class InventoryGraphicsRenderer : ILoadable
 
         if (config.EnableMovementEffects)
         {
-            if (graphics.HasInventoryDrawPosition)
+            if (graphics.InventoryDrawPosition.HasValue)
             {
-                graphics.InventoryDrawPosition = Vector2.SmoothStep(graphics.InventoryDrawPosition, screenPositionForItemCenter, 0.5f);
+                graphics.InventoryDrawPosition = Vector2.SmoothStep(graphics.InventoryDrawPosition.Value, screenPositionForItemCenter, 0.5f);
             }
             else
             {
                 graphics.InventoryDrawPosition = screenPositionForItemCenter;
             }
-            
-            if (Main.mouseItem != item)
+
+            if (item != Main.mouseItem)
             {
-                drawPosition = graphics.InventoryDrawPosition;
+                drawPosition = graphics.InventoryDrawPosition.Value;
             }
         }
+        var hitbox = new Rectangle
+        (
+            (int)screenPositionForItemCenter.X - 20,
+            (int)screenPositionForItemCenter.Y - 20,
+            40,
+            40
+        );
+
+        graphics.Hovering = hitbox.Contains(Main.MouseScreen.ToPoint());
+
+        if (config.EnableInventorySounds && graphics.Hovering && !graphics.OldHovering)
+        {
+            SoundEngine.PlaySound(in SoundID.MenuTick);
+        }
+
+        graphics.OldHovering = graphics.Hovering;
 
         if (config.EnableHoverEffects)
         {
-            var hitbox = new Rectangle(
-                (int)screenPositionForItemCenter.X - 20,
-                (int)screenPositionForItemCenter.Y - 20,
-                40,
-                40
-            );
-
-            var hovering = hitbox.Contains(Main.MouseScreen.ToPoint()) || Main.mouseItem == item;
-
+            var hovering = graphics.Hovering || Main.mouseItem == item || Main.LocalPlayer.HeldItem == item;
+            
             graphics.DrawScale = MathHelper.SmoothStep(graphics.DrawScale, hovering ? config.HoveredItemScale : config.UnhoveredItemScale, 0.5f);
 
             drawScale = graphics.DrawScale;

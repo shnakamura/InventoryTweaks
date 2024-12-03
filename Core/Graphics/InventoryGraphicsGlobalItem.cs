@@ -1,10 +1,7 @@
 ﻿namespace InventoryTweaks.Core.Graphics;
 
-[Autoload(Side = ModSide.Client)]
 public sealed class InventoryGraphicsGlobalItem : GlobalItem
 {
-    private Vector2 inventoryDrawPosition;
-
     /// <summary>
     ///     The inventory draw scale of the item attached to this global.
     /// </summary>
@@ -13,26 +10,17 @@ public sealed class InventoryGraphicsGlobalItem : GlobalItem
     /// <summary>
     ///     The inventory draw position of the item attached to this global.
     /// </summary>
-    public Vector2 InventoryDrawPosition
-    {
-        get => inventoryDrawPosition;
-        internal set
-        {
-            inventoryDrawPosition = value;
-
-            HasInventoryDrawPosition = true;
-        }
-    }
-
+    public Vector2? InventoryDrawPosition { get; internal set; }
+    
     /// <summary>
-    ///     Indicates whether the inventory draw position of the item attached to this global has been initialized or not.
+    ///     Whether the item attached to this global is being hovered over or not.
     /// </summary>
-    /// <remarks>
-    ///     This flag ensures that during the first rendering update, the animation of the item starts from the correct
-    ///     position,
-    ///     rather than defaulting to zero.
-    /// </remarks>
-    public bool HasInventoryDrawPosition { get; private set; }
-
+    public bool Hovering { get; internal set; }
+    
+    /// <summary>
+    ///     Whether the item attached to this global was being hovered over or not.
+    /// </summary>
+    public bool OldHovering { get; internal set; }
+    
     public override bool InstancePerEntity { get; } = true;
 }

@@ -5,6 +5,7 @@ Configs: {
 		Headers: {
 			Graphics: Graphics
 			Input: Input
+			Audio: Audio Header
 		}
 
 		HoveredItemScale: {
@@ -35,6 +36,16 @@ Configs: {
 		EnableQuickControl: {
 			Label: Enable Quick Control
 			Tooltip: Whether quick-control is enabled or not.
+		}
+
+		EnableStackRefill: {
+			Label: Enable Stack Refill
+			Tooltip: Whether stack refill is enabled or not.
+		}
+
+		EnableInventorySounds: {
+			Label: Enable Inventory Sounds
+			Tooltip: ""
 		}
 	}
 }
