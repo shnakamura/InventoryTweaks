@@ -1,4 +1,5 @@
-﻿using InventoryTweaks.Utilities;
+﻿using InventoryTweaks.Core.Configuration;
+using InventoryTweaks.Utilities;
 using Microsoft.Xna.Framework.Input;
 using Terraria.GameInput;
 
@@ -25,7 +26,9 @@ public sealed class MouseRefillSystem : ModSystem
 
     private static void RefillMouseItem()
     {
-        if (Main.mouseItem.IsAir || Main.mouseItem.IsFull())
+        var config = ClientConfiguration.Instance;
+        
+        if (!config.EnableMouseRefill || Main.mouseItem.IsAir || Main.mouseItem.IsFull())
         {
             return;
         }

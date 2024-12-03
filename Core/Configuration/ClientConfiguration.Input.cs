@@ -23,4 +23,10 @@ public sealed partial class ClientConfiguration : ModConfig
     /// </summary>
     [DefaultValue(true)]
     public bool EnableStackRefill { get; set; } = true;
+
+    /// <summary>
+    ///     Whether mouse refill is enabled or not.
+    /// </summary>
+    [DefaultValue(true)]
+    public bool EnableMouseRefill { get; set; } = true;
 }
