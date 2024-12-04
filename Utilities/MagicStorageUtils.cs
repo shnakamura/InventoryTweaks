@@ -3,10 +3,9 @@ using Terraria.UI;
 
 namespace InventoryTweaks.Utilities;
 
-[ExtendsFromMod("MagicStorage")]
+[JITWhenModsEnabled("MagicStorage")]
 public static class MagicStorageUtils
 {
-    [JITWhenModsEnabled("MagicStorage")]
     public static bool IsStorageOpen(Item[] inv, int context, int slot)
     {
         var player = Main.LocalPlayer;

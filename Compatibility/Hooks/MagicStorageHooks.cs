@@ -10,6 +10,11 @@ public sealed class MagicStorageHooks : ILoadable
     private delegate Item GetRecipeCallback(CraftingUIState.RecipesPage self, int slot, ref int context);
 
     private delegate Item GetHeaderCallback(int slot, ref int context);
+
+    bool ILoadable.IsLoadingEnabled(Mod mod)
+    {
+        return ModLoader.HasMod("MagicStorage");
+    }
     
     void ILoadable.Load(Mod mod)
     {
