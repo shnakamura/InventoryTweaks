@@ -28,7 +28,6 @@ public static class ItemSlotUtils
                || context == ItemSlot.Context.HotbarItem
                || context == ItemSlot.Context.GuideItem
                || context == ItemSlot.Context.PrefixItem
-               || context == ItemSlot.Context.CreativeInfinite
                || context == ItemSlot.Context.CreativeSacrifice
                || context == ItemSlot.Context.EquipArmor
                || context == ItemSlot.Context.EquipArmorVanity
