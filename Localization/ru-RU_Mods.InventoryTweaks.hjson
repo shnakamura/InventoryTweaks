@@ -5,7 +5,7 @@ Configs: {
 		Headers: {
 			Graphics: Графические настройки
 			Input: Настройки взаимодействий
-			// Audio: Audio Header
+			// Audio: Audio Settings
 		}
 
 		HoveredItemScale: {
@@ -40,12 +40,37 @@ Configs: {
 
 		EnableStackRefill: {
 			// Label: Enable Stack Refill
-			// Tooltip: Whether stack refill is enabled or not.
+			// Tooltip: Toggles automatic refills item stacks in your hotbar from your inventory when depleted.
 		}
 
 		EnableInventorySounds: {
 			// Label: Enable Inventory Sounds
-			// Tooltip: ""
+			// Tooltip: Toggles sound effects when interacting with inventory items.
+		}
+
+		EnableMouseRefill: {
+			// Label: Enable Mouse Refill
+			// Tooltip: Toggles manual refilling of items in the cursor slot from inventory stacks.
+		}
+
+		StackType: {
+			// Label: Stack Type
+			/* Tooltip:
+				'''
+				Determines the quantity of items taken from a stack when splitting:
+				- Default: Takes 1 item from the stack.
+				- Half: Takes half of the stack's items.
+				- Full: Takes all items from the stack.
+				''' */
 		}
 	}
+
+	StackType: {
+		// Tooltip: Determines how stack splitting behaves.
+		// Default.Label: Default
+		// Half.Label: Half
+		// Full.Label: Full
+	}
 }
+
+// Keybinds.MouseRefillKeybind.DisplayName: Mouse Refill

@@ -3,49 +3,74 @@ Configs: {
 		DisplayName: Client Configuration
 
 		Headers: {
-			Graphics: Graphics
-			Input: Input
-			Audio: Audio Header
+			Graphics: Graphics Settings
+			Input: Input Settings
+			Audio: Audio Settings
 		}
 
 		HoveredItemScale: {
 			Label: Hovered Item Scale
-			Tooltip: The draw scale of hovered items.
+			Tooltip: Adjusts the visual size of items when hovered over.
 		}
 
 		UnhoveredItemScale: {
 			Label: Unhovered Item Scale
-			Tooltip: The draw scale of unhovered items.
+			Tooltip: Adjusts the visual size of items when not hovered over.
 		}
 
 		EnableHoverEffects: {
 			Label: Enable Hover Effects
-			Tooltip: Whether item hover effects are enabled or not.
+			Tooltip: Toggles special effects applied to items when hovered over.
 		}
 
 		EnableMovementEffects: {
 			Label: Enable Movement Effects
-			Tooltip: Whether item movement effects are enabled or not.
+			Tooltip: Toggles visual and motion effects for items when moved in the inventory.
 		}
 
 		EnableQuickShift: {
 			Label: Enable Quick Shift
-			Tooltip: Whether quick-shift is enabled or not.
+			Tooltip: Toggles quick movement of items between inventory and containers.
 		}
 
 		EnableQuickControl: {
 			Label: Enable Quick Control
-			Tooltip: Whether quick-control is enabled or not.
+			Tooltip: Toggles quick-access inventory controls for more efficient management.
 		}
 
 		EnableStackRefill: {
 			Label: Enable Stack Refill
-			Tooltip: Whether stack refill is enabled or not.
+			Tooltip: Toggles automatic refills item stacks in your hotbar from your inventory when depleted.
 		}
 
 		EnableInventorySounds: {
 			Label: Enable Inventory Sounds
-			Tooltip: ""
+			Tooltip: Toggles sound effects when interacting with inventory items.
+		}
+
+		EnableMouseRefill: {
+			Label: Enable Mouse Refill
+			Tooltip: Toggles manual refilling of items in the cursor slot from inventory stacks.
+		}
+
+		StackType: {
+			Label: Stack Type
+			Tooltip:
+				'''
+				Determines the quantity of items taken from a stack when splitting:
+				- Default: Takes 1 item from the stack.
+				- Half: Takes half of the stack's items.
+				- Full: Takes all items from the stack.
+				'''
 		}
 	}
+
+	StackType: {
+		Tooltip: Determines how stack splitting behaves.
+		Default.Label: Default
+		Half.Label: Half
+		Full.Label: Full
+	}
 }
+
+Keybinds.MouseRefillKeybind.DisplayName: Mouse Refill

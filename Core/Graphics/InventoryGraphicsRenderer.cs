@@ -10,6 +10,7 @@ public sealed class InventoryGraphicsRenderer : ILoadable
     void ILoadable.Load(Mod mod)
     {
         On_ItemSlot.DrawItemIcon += ItemSlot_DrawItemIcon_Hook;
+        On_ItemSlot.Draw_SpriteBatch_ItemArray_int_int_Vector2_Color += ItemSlot_Draw_Hook;
     }
 
     void ILoadable.Unload() { }
@@ -30,7 +31,7 @@ public sealed class InventoryGraphicsRenderer : ILoadable
         {
             return orig(item, context, spriteBatch, screenPositionForItemCenter, scale, sizeLimit, environmentColor);
         }
-        
+
         var drawPosition = screenPositionForItemCenter;
         var drawScale = scale;
 
@@ -52,6 +53,7 @@ public sealed class InventoryGraphicsRenderer : ILoadable
                 drawPosition = graphics.InventoryDrawPosition.Value;
             }
         }
+
         var hitbox = new Rectangle
         (
             (int)screenPositionForItemCenter.X - 20,
@@ -72,12 +74,26 @@ public sealed class InventoryGraphicsRenderer : ILoadable
         if (config.EnableHoverEffects)
         {
             var hovering = graphics.Hovering || Main.mouseItem == item || Main.LocalPlayer.HeldItem == item;
-            
+
             graphics.DrawScale = MathHelper.SmoothStep(graphics.DrawScale, hovering ? config.HoveredItemScale : config.UnhoveredItemScale, 0.5f);
 
             drawScale = graphics.DrawScale;
         }
 
         return orig(item, context, spriteBatch, drawPosition, drawScale, sizeLimit, environmentColor);
+    }
+
+    private static void ItemSlot_Draw_Hook
+    (
+        On_ItemSlot.orig_Draw_SpriteBatch_ItemArray_int_int_Vector2_Color orig,
+        SpriteBatch spriteBatch,
+        Item[] inv,
+        int context,
+        int slot,
+        Vector2 position,
+        Color lightColor
+    )
+    {
+        orig(spriteBatch, inv, context, slot, position, lightColor);
     }
 }

@@ -1,72 +1,41 @@
-﻿using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using InventoryTweaks.Core.Configuration;
 using InventoryTweaks.Utilities;
-using MagicStorage;
-using Mono.Cecil.Cil;
 using MonoMod.Cil;
-using Terraria.DataStructures;
-using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 
-namespace InventoryTweaks.Core.Input;
+namespace InventoryTweaks.Core.Tweaks;
 
-public sealed partial class QuickActionSystem : ILoadable
+public sealed partial class ItemQuickActionSystem : ILoadable
 {
+    /// <summary>
+    ///     The index of the last item slot that the player used to trash an item.
+    /// </summary>
     public static int LastTrashSlot { get; private set; } = -1;
     
-    public static int LastRightSlot { get; private set; } = -1;
-    
-    // public static int LastInsertionSlot { get; private set; } = -1;
+    /// <summary>
+    ///     The index of the last item slot that the player used to equip an item.
+    /// </summary>
+    public static int LastEquipSlot { get; private set; } = -1;
     
     void ILoadable.Load(Mod mod)
     {
-        // On_ItemSlot.OverrideHover_ItemArray_int_int += ItemSlot_OverrideHover_Hook;
         On_ItemSlot.LeftClick_SellOrTrash += ItemSlot_LeftClick_SellOrTrash_Hook;
+        On_ItemSlot.RightClick_ItemArray_int_int += ItemSlot_RightClick_Hook;
         
         IL_ItemSlot.LeftClick_ItemArray_int_int += ItemSlot_LeftClick_Edit;
+        IL_ItemSlot.RightClick_ItemArray_int_int += ItemSlot_RightClick_Edit;
     }
 
     void ILoadable.Unload() { }
 
-    /*
-    private static void ItemSlot_OverrideHover_Hook(On_ItemSlot.orig_OverrideHover_ItemArray_int_int orig, Item[] inv, int context, int slot)
-    {
-        orig(inv, context, slot);
-
-        if (Main.mouseItem.IsAir || !Main.mouseRight || slot == LastInsertionSlot)
-        {
-            return;
-        }
-
-        var item = inv[slot];
-        
-        if (!item.IsAir && item.type != Main.mouseItem.type)
-        {
-            return;
-        }
-
-        if (item.IsAir)
-        {
-            item.SetDefaults(Main.mouseItem.type);
-        }
-        else
-        {
-            item.stack++;
-        }
-
-        LastInsertionSlot = slot;
-    }
-    */
-    
     private static bool ItemSlot_LeftClick_SellOrTrash_Hook(On_ItemSlot.orig_LeftClick_SellOrTrash orig, Item[] inv, int context, int slot)
     {
         var result = orig(inv, context, slot);
         
         var config = ClientConfiguration.Instance;
 
-        if (result && ItemSlotUtils.IsInventoryContext(context) && config.EnableQuickControl && ItemSlot.ControlInUse)
+        if (result && config.EnableQuickControl && ItemSlot.ControlInUse && ItemSlotUtils.IsInventoryContext(context))
         {
             LastTrashSlot = slot;
         }
@@ -78,32 +47,14 @@ public sealed partial class QuickActionSystem : ILoadable
     {
         orig(inv, context, slot);
         
-        LastRightSlot = slot;
-    }
-    
-    private static void ItemSlot_RightClick_Edit(ILContext il)
-    {
-        try
+        var config = ClientConfiguration.Instance;
+        
+        if (!config.EnableQuickShift || !ItemSlotUtils.IsInventoryContext(context))
         {
-            var c = new ILCursor(il);
-
-            while (c.TryGotoNext(MoveType.After, static i => i.MatchLdsfld<Main>(nameof(Main.mouseRightRelease))))
-            {
-                c.EmitLdarg2();
-                
-                c.EmitDelegate
-                (
-                    static (bool flag, int slot) =>
-                    {
-                        return slot != LastRightSlot || Main.mouseRightRelease;
-                    }
-                );
-            }
+            return;
         }
-        catch (Exception)
-        {
-            MonoModHooks.DumpIL(InventoryTweaks.Instance, il);
-        }
+        
+        LastEquipSlot = slot;
     }
 
     private static void ItemSlot_LeftClick_Edit(ILContext il)
@@ -125,19 +76,19 @@ public sealed partial class QuickActionSystem : ILoadable
 
             c.EmitLdloca(1);
             
-            c.EmitDelegate(static (Item[] inv, int context, int slot, ref bool flag) =>
+            c.EmitDelegate(static (Item[] inv, int context, int slot, ref bool value) =>
             {
                 var config = ClientConfiguration.Instance;
                 
                 var hasAction = Main.cursorOverride != -1;
 
-                flag |= ItemSlotUtils.IsInventoryContext(context)
+                value |= ItemSlotUtils.IsInventoryContext(context)
                         && Main.mouseLeft
                         && config.EnableQuickShift
                         && ItemSlot.ShiftInUse
                         && hasAction;
 
-                flag |= ItemSlotUtils.IsInventoryContext(context)
+                value |= ItemSlotUtils.IsInventoryContext(context)
                         && Main.mouseLeft
                         && config.EnableQuickControl
                         && ItemSlot.ControlInUse
@@ -149,12 +100,37 @@ public sealed partial class QuickActionSystem : ILoadable
                     return;
                 }
                 
-                flag |= ItemSlotUtils.IsInventoryContext(context)
+                value |= ItemSlotUtils.IsInventoryContext(context)
                         && Main.mouseLeft 
                         && config.EnableQuickShift 
                         && ItemSlot.ShiftInUse 
-                        && HasStorageUIEnabled(inv, context, slot);
+                        && MagicStorageUtils.IsStorageOpen(inv, context, slot);
             });
+        }
+        catch (Exception)
+        {
+            MonoModHooks.DumpIL(InventoryTweaks.Instance, il);
+        }
+    }
+    
+    private static void ItemSlot_RightClick_Edit(ILContext il)
+    {
+        try
+        {
+            var c = new ILCursor(il);
+
+            while (c.TryGotoNext(MoveType.After, static i => i.MatchLdsfld<Main>(nameof(Main.mouseRightRelease))))
+            {
+                c.EmitLdarg2();
+                
+                c.EmitDelegate
+                (
+                    static (bool value, int slot) =>
+                    {
+                        return slot != LastEquipSlot || Main.mouseRightRelease;
+                    }
+                );
+            }
         }
         catch (Exception)
         {

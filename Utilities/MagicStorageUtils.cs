@@ -1,15 +1,13 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
-using MagicStorage;
-using Terraria.DataStructures;
+﻿using MagicStorage;
 using Terraria.UI;
 
-namespace InventoryTweaks.Core.Input;
+namespace InventoryTweaks.Utilities;
 
-public sealed partial class QuickActionSystem : ILoadable
+[ExtendsFromMod("MagicStorage")]
+public static class MagicStorageUtils
 {
     [JITWhenModsEnabled("MagicStorage")]
-    private static bool HasStorageUIEnabled(Item[] inv, int context, int slot)
+    public static bool IsStorageOpen(Item[] inv, int context, int slot)
     {
         var player = Main.LocalPlayer;
 

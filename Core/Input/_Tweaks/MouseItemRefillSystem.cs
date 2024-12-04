@@ -1,22 +1,19 @@
 ﻿using InventoryTweaks.Core.Configuration;
+using InventoryTweaks.Core.Input;
 using InventoryTweaks.Utilities;
-using Microsoft.Xna.Framework.Input;
-using Terraria.GameInput;
+using Terraria.Audio;
 
-namespace InventoryTweaks.Core.Input;
+namespace InventoryTweaks.Core.Tweaks;
 
-public sealed class MouseRefillSystem : ModSystem
+public sealed class MouseItemRefillSystem : ModSystem
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public const int INVENTORY_LENGTH = 57;
 
     public override void PostUpdateInput()
     {
         base.PostUpdateInput();
 
-        if (!InputUtils.JustMiddleClicked)
+        if (!KeybindSystem.MouseRefillKeybind.JustPressed)
         {
             return;
         }
@@ -32,14 +29,35 @@ public sealed class MouseRefillSystem : ModSystem
         {
             return;
         }
+
+        var indices = new int[INVENTORY_LENGTH];
         
         for (var i = 0; i < INVENTORY_LENGTH; i++)
         {
-            var item = Main.LocalPlayer.inventory[i];
+            indices[i] = i;
+        }
+
+        Array.Sort(indices, static (left, right) =>
+        {
+            var leftItem = Main.LocalPlayer.inventory[left];
+            var rightItem = Main.LocalPlayer.inventory[right];
+
+            return leftItem.stack.CompareTo(rightItem.stack);
+        });
+        
+        for (var i = 0; i < INVENTORY_LENGTH; i++)
+        {
+            var index = indices[i];
+            var item = Main.LocalPlayer.inventory[index];
 
             if (item.IsAir || item.type != Main.mouseItem.type)
             {
                 continue;
+            }
+            
+            if (config.EnableInventorySounds)
+            {
+                SoundEngine.PlaySound(in SoundID.MenuTick);
             }
 
             var stack = Main.mouseItem.maxStack - Main.mouseItem.stack;

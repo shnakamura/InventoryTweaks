@@ -2,10 +2,10 @@
 using MagicStorage;
 using MagicStorage.UI.States;
 
-namespace InventoryTweaks.Core.Compatibility;
+namespace InventoryTweaks.Compatibility.Hooks;
 
 [JITWhenModsEnabled("MagicStorage")]
-public sealed class MagicStoragePatches : ILoadable
+public sealed class MagicStorageHooks : ILoadable
 {
     private delegate Item GetRecipeCallback(CraftingUIState.RecipesPage self, int slot, ref int context);
 
