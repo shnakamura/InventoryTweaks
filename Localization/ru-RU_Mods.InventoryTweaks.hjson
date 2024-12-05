@@ -5,7 +5,7 @@ Configs: {
 		Headers: {
 			Graphics: Графические настройки
 			Input: Настройки взаимодействий
-			// Audio: Audio Settings
+			Audio: Настройки аудио
 		}
 
 		HoveredItemScale: {
@@ -39,38 +39,38 @@ Configs: {
 		}
 
 		EnableStackRefill: {
-			// Label: Enable Stack Refill
-			// Tooltip: Toggles automatic refills item stacks in your hotbar from your inventory when depleted.
+			Label: Автоматические пополнение стопок
+			Tooltip: Израсходованные предметы в ваших руках будут автоматически пополняться, если такой же тип предмета есть в вашем инвентаре
 		}
 
 		EnableInventorySounds: {
-			// Label: Enable Inventory Sounds
-			// Tooltip: Toggles sound effects when interacting with inventory items.
+			Label: Звуки инветаря
+			Tooltip: Взаимодействия с предметами в инвентаре будет сопровождаться звуковыми эффектами
 		}
 
 		EnableMouseRefill: {
-			// Label: Enable Mouse Refill
-			// Tooltip: Toggles manual refilling of items in the cursor slot from inventory stacks.
+			Label: Пополнение стопок мышью
+			Tooltip: Позволяет быстро пополнять стопку предмета в слоте курсора по нажатию горячей клавиши, если такой же тип предмета есть в вашем инвентаре
 		}
 
 		StackType: {
-			// Label: Stack Type
-			/* Tooltip:
+			Label: Способ взятия предметов
+			Tooltip:
 				'''
-				Determines the quantity of items taken from a stack when splitting:
-				- Default: Takes 1 item from the stack.
-				- Half: Takes half of the stack's items.
-				- Full: Takes all items from the stack.
-				''' */
+				Определяет, по какому принципу будут браться предметы из стопки при нажатии ПКМ:
+				- По умолчанию: будет браться один предмет из стопки;
+				- Половина: будет браться половина стопки;
+				- Полностью: будет браться вся стопка, аналогично нажатию ЛКМ.
+				'''
 		}
 	}
 
 	StackType: {
-		// Tooltip: Determines how stack splitting behaves.
-		// Default.Label: Default
-		// Half.Label: Half
-		// Full.Label: Full
+		Tooltip: Определяет принцип взятия предметов из стопок.
+		Default.Label: по умолчанию
+		Half.Label: половина
+		Full.Label: полностью
 	}
 }
 
-// Keybinds.MouseRefillKeybind.DisplayName: Mouse Refill
+Keybinds.MouseRefillKeybind.DisplayName: Пополнение стопок мышью
