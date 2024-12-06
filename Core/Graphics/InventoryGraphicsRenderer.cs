@@ -1,10 +1,13 @@
 ﻿using InventoryTweaks.Core.Configuration;
+using InventoryTweaks.Core.Enums;
+using InventoryTweaks.Core.Input;
 using InventoryTweaks.Utilities;
 using Terraria.Audio;
 using Terraria.UI;
 
 namespace InventoryTweaks.Core.Graphics;
 
+// TODO: Make items render above item slots regardless of their index to avoid layering issues.
 public sealed class InventoryGraphicsRenderer : ILoadable
 {
     void ILoadable.Load(Mod mod)
@@ -73,8 +76,16 @@ public sealed class InventoryGraphicsRenderer : ILoadable
 
         if (config.EnableHoverEffects)
         {
-            var hovering = graphics.Hovering || Main.mouseItem == item || Main.LocalPlayer.HeldItem == item;
-
+            var hovering = config.HoverType switch
+            {
+                HoverType.All => graphics.Hovering || Main.mouseItem == item || Main.LocalPlayer.HeldItem == item,
+                HoverType.Held => Main.LocalPlayer.HeldItem == item,
+                HoverType.Hover => graphics.Hovering,
+                HoverType.Mouse => Main.mouseItem == item,
+                HoverType.None => false,
+                _ => false
+            };
+            
             graphics.DrawScale = MathHelper.SmoothStep(graphics.DrawScale, hovering ? config.HoveredItemScale : config.UnhoveredItemScale, 0.5f);
 
             drawScale = graphics.DrawScale;

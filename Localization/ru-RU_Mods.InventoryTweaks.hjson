@@ -63,6 +63,19 @@ Configs: {
 				- Full: Takes all items from the stack.
 				''' */
 		}
+
+		HoverType: {
+			// Label: Hover Type
+			/* Tooltip:
+				'''
+				Determines when an item's hover effects are active:
+				- None: No items have hover effects.
+				- Mouse: Only the mouse item has hover effects.
+				- Hover: Only hovered items have hover effects.
+				- Held: Only held items have hover effects.
+				- All: All items have hover effects.
+				''' */
+		}
 	}
 
 	StackType: {
@@ -70,6 +83,15 @@ Configs: {
 		// Default.Label: Default
 		// Half.Label: Half
 		// Full.Label: Full
+	}
+
+	HoverType: {
+		// Tooltip: Determines how item hover effects are applied.
+		// None.Label: None
+		// Mouse.Label: Mouse
+		// Hover.Label: Hover
+		// Held.Label: Held
+		// All.Label: All
 	}
 }
 

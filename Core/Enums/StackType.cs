@@ -1,8 +1,9 @@
 ﻿namespace InventoryTweaks.Core.Enums;
 
+[Flags]
 public enum StackType
 {
-    Default,
-    Half,
-    Full
+    Default = 0,
+    Half = 1 << 0,
+    Full = 1 << 1 
 }

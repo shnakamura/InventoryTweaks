@@ -10,7 +10,7 @@ public sealed class KeybindSystem : ModSystem
     {
         base.Load();
 
-        MouseRefillKeybind = KeybindLoader.RegisterKeybind(Mod, nameof(MouseRefillKeybind), "MMB");
+        MouseRefillKeybind = KeybindLoader.RegisterKeybind(Mod, nameof(MouseRefillKeybind), "Mouse3");
     }
 
     public override void Unload()

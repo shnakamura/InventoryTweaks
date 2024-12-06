@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using InventoryTweaks.Core.Enums;
 using Terraria.ModLoader.Config;
 
 namespace InventoryTweaks.Core.Configuration;
@@ -25,4 +26,7 @@ public sealed partial class ClientConfiguration : ModConfig
     [Range(0.4f, 1f)]
     [DefaultValue(0.8f)]
     public float UnhoveredItemScale { get; set; } = 0.8f;
+
+    [DefaultValue(typeof(HoverType), "All")]
+    public HoverType HoverType { get; set; } = HoverType.All;
 }
