@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using InventoryTweaks.Core.Configuration;
+using InventoryTweaks.Core.Input;
 using InventoryTweaks.Utilities;
 using MonoMod.Cil;
 using Terraria.UI;
@@ -121,13 +122,14 @@ public sealed partial class ItemQuickActionSystem : ILoadable
 
             while (c.TryGotoNext(MoveType.After, static i => i.MatchLdsfld<Main>(nameof(Main.mouseRightRelease))))
             {
+                c.EmitLdarg1();
                 c.EmitLdarg2();
                 
                 c.EmitDelegate
                 (
-                    static (bool value, int slot) =>
+                    static (bool value, int context, int slot) =>
                     {
-                        return slot != LastEquipSlot || Main.mouseRightRelease;
+                        return !ItemDistributionSystem.Inserting && ItemSlotUtils.IsInventoryContext(context) && (slot != LastEquipSlot || Main.mouseRightRelease);
                     }
                 );
             }
